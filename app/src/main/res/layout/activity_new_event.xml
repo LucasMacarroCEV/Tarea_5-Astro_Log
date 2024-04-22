@@ -10,15 +10,33 @@
         android:id="@+id/tvAddEvent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Añadir evento"
-        android:textSize="30sp"
+        android:text="Nuevo evento"
+        android:textSize="35sp"
         android:textColor="@color/black"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/tvCategory"
+        android:layout_marginTop="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/tilEventName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilEventName"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:hint="Nombre"
+        android:layout_marginTop="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/tvCategory"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvAddEvent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
         android:id="@+id/tvCategory"
@@ -28,16 +46,18 @@
         android:textSize="20sp"
         android:textStyle="italic"
         android:textColor="@color/black"
+        android:layout_marginTop="30sp"
         app:layout_constraintBottom_toTopOf="@+id/linlEventsImage"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvAddEvent" />
+        app:layout_constraintTop_toBottomOf="@+id/tilEventName" />
 
     <LinearLayout
         android:id="@+id/linlEventsImage"
         android:layout_width="300sp"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:layout_marginTop="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
@@ -115,7 +135,7 @@
             app:srcCompat="@drawable/rocket" />
 
         <ImageView
-            android:id="@+id/ivStallite"
+            android:id="@+id/ivSatellite"
             android:layout_width="60sp"
             android:layout_height="65sp"
             android:layout_weight="1"
@@ -137,8 +157,10 @@
         android:textSize="20sp"
         android:textStyle="italic"
         android:textColor="@color/black"
+        android:layout_marginTop="10sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/btnAdd"
         app:layout_constraintTop_toBottomOf="@+id/linl3EventsImage" />
 
     <Button
@@ -146,6 +168,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Fecha"
+        android:layout_marginTop="20sp"
         app:layout_constraintEnd_toStartOf="@+id/btnTimePicker"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvDate" />
@@ -155,9 +178,35 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Hora"
+        android:layout_marginTop="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvDate"
         app:layout_constraintStart_toEndOf="@+id/btnDatePicker"
+        app:layout_constraintTop_toBottomOf="@+id/tvDate" />
+
+    <Button
+        android:id="@+id/btnAdd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="70sp"
+        android:text="Añadir"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvDate" />
+
+    <TextView
+        android:id="@+id/tvError"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Error"
+        android:textStyle="italic"
+        android:textColor="#C62C2C"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.99"
+        app:layout_constraintHorizontal_bias="0.05"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

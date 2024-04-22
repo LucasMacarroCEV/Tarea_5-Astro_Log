@@ -12,6 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 public class EventAdapter extends ArrayAdapter
@@ -42,8 +43,8 @@ public class EventAdapter extends ArrayAdapter
         tvName.setText(event.name);
 
         // Poner la foto
-        //ImageView ivCategoryPhoto = convertView.findViewById(R.id.ivEventCategoryImage);
-        //ivCategoryPhoto.setImageDrawable(context.getDrawable(event.categoryPhoto));
+        ImageView ivCategoryPhoto = convertView.findViewById(R.id.ivEventCategoryImage);
+        ivCategoryPhoto.setImageDrawable(context.getDrawable(event.categoryPhoto));
 
         //Poner la fecha
         TextView tvDate = convertView.findViewById(R.id.tvEventDate);
