@@ -68,7 +68,23 @@ public class NewEvent extends AppCompatActivity {
         SetName();
         SetDate();
 
-        SendNewEvent();
+        if (binding.tilEventName.getEditText().getText().toString().isEmpty() || eventCategoryPhoto == 0 || eventCategory == null || eventDate.isEmpty()){
+            binding.tvError.setText("Rellene todos los campos, por favor.");
+            bError = true;
+        }
+        else{
+            try{
+                bError = false;
+                binding.tvError.setText("");
+            }catch(NumberFormatException | NullPointerException e){
+                bError = true;
+                binding.tvError.setText("Error de sintaxis.");
+            }
+        }
+
+        if (!bError){
+            SendNewEvent();
+        }
     }
     private void SendNewEvent(){
         Event newEvent = new Event(eventName, eventDate, eventCategoryPhoto, eventCategory);

@@ -12,6 +12,7 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="android:datePickerDialogTheme">@color/black</item>
     </style>
 
     <style name="DialogTheme" parent="Theme.MaterialComponents.DayNight.Dialog">
