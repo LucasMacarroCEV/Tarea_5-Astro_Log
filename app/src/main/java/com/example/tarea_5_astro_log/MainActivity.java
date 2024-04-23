@@ -1,15 +1,19 @@
 package com.example.tarea_5_astro_log;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.tarea_5_astro_log.databinding.ActivityMainBinding;
 
@@ -38,6 +42,10 @@ public class MainActivity extends AppCompatActivity {
 
         // Detectar pulsación en la lista
         //binding.lvEvents.setOnItemClickListener((adapterView, view1, i, l) -> );
+        binding.lvEvents.setOnItemLongClickListener((adapterView, view1, index, l) -> {
+            DeleteEvent(index);
+            return true;
+        });
 
         binding.ivAddEvent.setOnClickListener(view1 -> CreateNewEvent());
         binding.ivDeleteEvents.setOnClickListener(view1 -> DeleteEvents());
@@ -86,6 +94,25 @@ public class MainActivity extends AppCompatActivity {
         adapter.notifyDataSetChanged();
         SaveEvents();
         UpdateEventCount();
+    }
+    void DeleteEvent(int position){
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        builder.setMessage("¿Quieres eliminar este evento?")
+                .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        events.events.remove(position);
+                        adapter.notifyDataSetChanged();
+                        UpdateEventCount();
+                        Toast.makeText(getApplicationContext(), "Evento eliminado", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                }).show();
     }
 
     void SaveEvents(){

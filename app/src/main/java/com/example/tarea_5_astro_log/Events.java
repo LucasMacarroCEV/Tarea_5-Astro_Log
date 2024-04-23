@@ -16,7 +16,6 @@ public class Events {
         String json = gson.toJson(this);
         return json;
     }
-
     public static Events toJava(String json){
         Gson gson = new Gson();
         Events events = gson.fromJson(json, Events.class);
