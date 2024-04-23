@@ -3,7 +3,9 @@ package com.example.tarea_5_astro_log;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.view.View;
@@ -15,11 +17,9 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    Bundle data;
-
     private ActivityMainBinding binding;
     EventAdapter adapter;
-    ArrayList<Event> events = new ArrayList<>();
+    Events events;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,15 +28,10 @@ public class MainActivity extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
 
-        //Event newEvent = (Event) getIntent().getSerializableExtra("NewEvent");
-        //events.add(newEvent);
-        //data = getIntent().getExtras();
-        //Data.Card card = (Data.Card) data.getSerializable("Data");
-
-        // Datos del listado
+        LoadEvents();
 
         // Vincular la vista de cada fila a los datos
-        adapter = new EventAdapter(this, R.layout.event_item, events);
+        adapter = new EventAdapter(this, R.layout.event_item, events.events);
 
         // Vincular el adapta a la vista del listado
         binding.lvEvents.setAdapter(adapter);
@@ -49,12 +44,19 @@ public class MainActivity extends AppCompatActivity {
         UpdateEventCount();
     }
 
+    @Override
+    protected void onDestroy(){
+        super.onDestroy();
+
+        SaveEvents();
+    }
+
     void UpdateEventCount(){
-        if (events.size() == 1){
-            binding.tvEventsCount.setText("¡Has visto " + events.size() + " astro!");
+        if (events.events.size() == 1){
+            binding.tvEventsCount.setText("¡Has visto " + events.events.size() + " astro!");
         }
         else {
-            binding.tvEventsCount.setText("¡Has visto " + events.size() + " astros!");
+            binding.tvEventsCount.setText("¡Has visto " + events.events.size() + " astros!");
         }
     }
 
@@ -72,10 +74,28 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == 1){
             newEvent = (Event) bundle.getSerializable("newevent");
             if (newEvent != null){
-                events.add(newEvent);
+                events.events.add(newEvent);
                 adapter.notifyDataSetChanged();
                 UpdateEventCount();
             }
         }
     }
+
+    void SaveEvents(){
+        String json = events.toJSON();
+        SharedPreferences preferences = getSharedPreferences("data", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("events", json);
+        editor.commit();
+    }
+    void LoadEvents(){
+        SharedPreferences preferences = getSharedPreferences("data", Context.MODE_PRIVATE);
+        String json = preferences.getString("events", null);
+        if (json == null) {
+            events = new Events();
+        } else {
+            events = Events.toJava(json);
+        }
+    }
+
 }
