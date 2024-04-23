@@ -42,4 +42,14 @@
         app:srcCompat="@drawable/plusicon"
         />
 
+    <ImageView
+        android:id="@+id/ivDeleteEvents"
+        android:layout_width="50sp"
+        android:layout_height="50sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/ivAddEvent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lvEvents"
+        app:srcCompat="@drawable/trashicon" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

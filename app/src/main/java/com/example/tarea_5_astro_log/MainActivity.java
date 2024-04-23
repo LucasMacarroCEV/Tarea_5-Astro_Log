@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
         //binding.lvEvents.setOnItemClickListener((adapterView, view1, i, l) -> );
 
         binding.ivAddEvent.setOnClickListener(view1 -> CreateNewEvent());
+        binding.ivDeleteEvents.setOnClickListener(view1 -> DeleteEvents());
 
         UpdateEventCount();
     }
@@ -79,6 +80,12 @@ public class MainActivity extends AppCompatActivity {
                 UpdateEventCount();
             }
         }
+    }
+    void DeleteEvents(){
+        events.events.clear();
+        adapter.notifyDataSetChanged();
+        SaveEvents();
+        UpdateEventCount();
     }
 
     void SaveEvents(){
