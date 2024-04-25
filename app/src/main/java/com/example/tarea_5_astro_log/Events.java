@@ -13,12 +13,10 @@ public class Events {
 
     public String toJSON(){
         Gson gson = new Gson();
-        String json = gson.toJson(this);
-        return json;
+        return gson.toJson(this);
     }
     public static Events toJava(String json){
         Gson gson = new Gson();
-        Events events = gson.fromJson(json, Events.class);
-        return events;
+        return gson.fromJson(json, Events.class);
     }
 }

@@ -13,6 +13,7 @@
         android:layout_height="wrap_content"
         android:numColumns="3"
         android:padding="20sp"
+        android:layout_margin="10sp"
         android:horizontalSpacing="15sp"
         android:verticalSpacing="15sp"
         >

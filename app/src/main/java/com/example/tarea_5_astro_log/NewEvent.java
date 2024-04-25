@@ -45,6 +45,7 @@ public class NewEvent extends AppCompatActivity {
     private EventCategoryDialogBinding categoryBinding;
 
     String eventName;
+    String eventDescription;
     String eventDate;
     String date;
     String time;
@@ -86,6 +87,7 @@ public class NewEvent extends AppCompatActivity {
 
     private void CreateEvent(){
         SetName();
+        SetDescription();
         SetDate();
 
         if (binding.tilEventName.getEditText().getText().toString().isEmpty() || eventCategoryPhoto == 0 || eventCategory == null || eventDate.isEmpty()){
@@ -107,7 +109,7 @@ public class NewEvent extends AppCompatActivity {
         }
     }
     private void SendNewEvent(){
-        Event newEvent = new Event(eventName, eventDate, eventCategoryPhoto, eventCategory);
+        Event newEvent = new Event(eventName, eventDescription, eventDate, eventCategoryPhoto, eventCategory);
         Intent intent =new Intent(NewEvent.this, MainActivity.class);
 
         Bundle bundle = new Bundle();
@@ -122,55 +124,13 @@ public class NewEvent extends AppCompatActivity {
         eventName = binding.tilEventName.getEditText().getText().toString();
     }
 
+    private void SetDescription(){
+        eventDescription = binding.tilEventDescription.getEditText().getText().toString();
+    }
+
     private void SetCategory(EventCategory category){
         eventCategory = category.eventCategory;
         eventCategoryPhoto = category.eventCategoryImage;
-
-        /*Category selectedCategory = null;
-        int selectedCategoryIco = 0;
-
-        switch (eventcategory){
-            case COMET:
-                selectedCategory = Category.COMET;
-                selectedCategoryIco = R.drawable.comet;
-                break;
-            case MILKYWAY:
-                selectedCategory = Category.MILKYWAY;
-                selectedCategoryIco = R.drawable.milkyway;
-                break;
-            case SHOOTINGSTAR:
-                selectedCategory = Category.SHOOTINGSTAR;
-                selectedCategoryIco = R.drawable.shootingstar;
-                break;
-            case FULLMOON:
-                selectedCategory = Category.FULLMOON;
-                selectedCategoryIco = R.drawable.fullmoon;
-                break;
-            case PLANET:
-                selectedCategory = Category.PLANET;
-                selectedCategoryIco = R.drawable.planeta;
-                break;
-            case ECLIPSE:
-                selectedCategory = Category.ECLIPSE;
-                selectedCategoryIco = R.drawable.eclipse;
-                break;
-            case ROCKET:
-                selectedCategory = Category.ROCKET;
-                selectedCategoryIco = R.drawable.rocket;
-                break;
-            case SATELLITE:
-                selectedCategory = Category.SATELLITE;
-                selectedCategoryIco = R.drawable.satellite;
-                break;
-            case UFO:
-                selectedCategory = Category.UFO;
-                selectedCategoryIco = R.drawable.ufo;
-                break;
-            default: break;
-        }
-
-        eventCategory = selectedCategory;
-        eventCategoryPhoto = selectedCategoryIco;*/
     }
     private void Category(){
         AlertDialog.Builder builder = new AlertDialog.Builder(NewEvent.this);
