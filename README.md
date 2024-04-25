@@ -86,7 +86,7 @@ El layout `detailed_event.xml` establece un *layout* personalizado para el *Dial
 - *TextView* que muestra el nombre del evento.
 - *TextView* que muestra la descripción del evento.
 - *TextView* que muestra la fecha registrada del evento en formato extendido.
-- *ImageView` que muestra la imagen de la categoría.
+- *ImageView* que muestra la imagen de la categoría.
 
 ### EventCategory
 La clase `EventCategory.java` tiene:
