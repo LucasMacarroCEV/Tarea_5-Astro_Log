@@ -83,10 +83,10 @@ El layout `event_item.xml` establece la representación visual de cada evento.
 #### DetailedEventLayout
 El layout `detailed_event.xml` establece un *layout* personalizado para el *Dialog* que muestra información extendida del evento en la Actividad `MainActivity.java`.
 
-- `TextView` que muestra el nombre del evento.
-- `TextView` que muestra la descripción del evento.
-- `TextView` que muestra la fecha registrada del evento en formato extendido.
-- `ImageView` que muestra la imagen de la categoría.
+- *TextView* que muestra el nombre del evento.
+- *TextView* que muestra la descripción del evento.
+- *TextView* que muestra la fecha registrada del evento en formato extendido.
+- *ImageView` que muestra la imagen de la categoría.
 
 ### EventCategory
 La clase `EventCategory.java` tiene:
@@ -137,7 +137,7 @@ El layout `event_category_item.xml` establece la representación visual de cada 
 #### EventCategoryDialog
 El layout `event_category_dialog.xml` establece un layout personalizado para el *Dialog* de selección de evento.
 
-- `GridView` que estructura y dispone las categorías.
+- *GridView* que estructura y dispone las categorías.
 
 ---
 
