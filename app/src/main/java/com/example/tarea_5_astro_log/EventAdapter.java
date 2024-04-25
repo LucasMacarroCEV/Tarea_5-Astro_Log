@@ -12,7 +12,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 public class EventAdapter extends ArrayAdapter
@@ -48,7 +47,7 @@ public class EventAdapter extends ArrayAdapter
 
         //Poner la fecha
         TextView tvDate = convertView.findViewById(R.id.tvEventDate);
-        tvDate.setText(event.date);
+        tvDate.setText(event.simpleDate);
 
         Log.i("getView", "fila: " + position + " nombre: "+ event.name);
         return convertView;

@@ -28,36 +28,32 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 public class NewEvent extends AppCompatActivity {
-
-    public enum Category{
-        COMET,
-        MILKYWAY,
-        SHOOTINGSTAR,
-        FULLMOON,
-        PLANET,
-        ECLIPSE,
-        ROCKET,
-        SATELLITE,
-        UFO
-    }
-
     private ActivityNewEventBinding binding;
     private EventCategoryDialogBinding categoryBinding;
 
+    public enum Category{
+        COMET, MILKYWAY, SHOOTINGSTAR, FULLMOON, PLANET, ECLIPSE, ROCKET, SATELLITE, UFO
+    }
+    String[] months = new String[]{
+            "Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"
+    };
+
     String eventName;
     String eventDescription;
-    String eventDate;
+    String eventSimpleDate;
+    String eventDetailedDate;
     String date;
     String time;
+    int eventYear;
+    int eventMonth;
+    int eventDay;
 
     Category eventCategory;
+    EventCategory currentCategory;
+    ArrayList<EventCategory> categories = new ArrayList<>();
     int eventCategoryPhoto = 0;
 
     boolean bError;
-
-    ArrayList<EventCategory> categories = new ArrayList<>();
-    EventCategory currentCategory;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,7 +86,7 @@ public class NewEvent extends AppCompatActivity {
         SetDescription();
         SetDate();
 
-        if (binding.tilEventName.getEditText().getText().toString().isEmpty() || eventCategoryPhoto == 0 || eventCategory == null || eventDate.isEmpty()){
+        if (binding.tilEventName.getEditText().getText().toString().isEmpty() || eventCategoryPhoto == 0 || eventCategory == null || eventSimpleDate.isEmpty()){
             binding.tvError.setText("Rellene todos los campos, por favor.");
             bError = true;
         }
@@ -109,7 +105,7 @@ public class NewEvent extends AppCompatActivity {
         }
     }
     private void SendNewEvent(){
-        Event newEvent = new Event(eventName, eventDescription, eventDate, eventCategoryPhoto, eventCategory);
+        Event newEvent = new Event(eventName, eventDescription, eventSimpleDate, eventDetailedDate, eventCategoryPhoto, eventCategory, eventYear, eventMonth, eventDay);
         Intent intent =new Intent(NewEvent.this, MainActivity.class);
 
         Bundle bundle = new Bundle();
@@ -133,38 +129,46 @@ public class NewEvent extends AppCompatActivity {
         eventCategoryPhoto = category.eventCategoryImage;
     }
     private void Category(){
-        AlertDialog.Builder builder = new AlertDialog.Builder(NewEvent.this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
         EventCategoryAdapter adapter = new EventCategoryAdapter(this, R.layout.event_category_item, categories);
         GridView customLayout = categoryBinding.gvCategories;
         builder.setView(customLayout);
-
         customLayout.setAdapter(adapter);
         if(customLayout.getParent() != null){
             ((ViewGroup)customLayout.getParent()).removeView(customLayout);
         }
+
+        AlertDialog dialog = builder.create();
+        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialogInterface) {
+                binding.ivCategory.setImageDrawable(getDrawable(currentCategory.eventCategoryImage));
+            }
+        });
+
         customLayout.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 currentCategory = categories.get(i);
                 SetCategory(currentCategory);
+                dialog.dismiss();
             }
         });
-
         builder.setTitle("Selecciona una categoría");
-        builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+        /*builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 binding.ivCategory.setImageDrawable(getDrawable(currentCategory.eventCategoryImage));
             }
-        });
-        builder.setCancelable(false);
+        });*/
+        //builder.setCancelable(false);
 
-        AlertDialog dialog = builder.create();
         dialog.show();
     }
 
     private void SetDate(){
-        eventDate = date + "  " + time;
+        eventSimpleDate = months[eventMonth] + " " + eventYear;
+        eventDetailedDate = date + "  " + time;
     }
     private void DatePicker(){
         final Calendar c = Calendar.getInstance();
@@ -172,6 +176,9 @@ public class NewEvent extends AppCompatActivity {
         DatePickerDialog datePickerDialog = new DatePickerDialog(this, R.style.DialogTheme , new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                eventYear = year;
+                eventMonth = month;
+                eventDay = day;
                 date = day + "." + (month + 1) + "." + year;
                 binding.tvDate.setText(date);
             }

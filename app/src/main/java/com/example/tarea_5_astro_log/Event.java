@@ -5,15 +5,23 @@ import java.io.Serializable;
 public class Event implements Serializable {
     String name;
     String description;
-    String date;
+    String simpleDate;
+    String detailedDate;
+    int year;
+    int month;
+    int day;
     int categoryPhoto;
     NewEvent.Category category;
 
-    public Event(String name, String description, String date, int categoryPhoto, NewEvent.Category category) {
+    public Event(String name, String description, String simpleDate, String detailedDate, int categoryPhoto, NewEvent.Category category, int year, int month, int day) {
         this.name = name;
         this.description = description;
-        this.date = date;
+        this.simpleDate = simpleDate;
+        this.detailedDate = detailedDate;
         this.categoryPhoto = categoryPhoto;
         this.category = category;
+        this.year = year;
+        this.month = month;
+        this.day = day;
     }
 }

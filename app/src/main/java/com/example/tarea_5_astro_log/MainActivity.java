@@ -1,11 +1,9 @@
 package com.example.tarea_5_astro_log;
 
-import androidx.activity.result.contract.ActivityResultContract;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
-import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -14,28 +12,15 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.AdapterView;
-import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.tarea_5_astro_log.databinding.ActivityMainBinding;
 import com.example.tarea_5_astro_log.databinding.DetailedEventBinding;
-
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
-import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -157,25 +142,12 @@ public class MainActivity extends AppCompatActivity {
         description.setText(events.events.get(position).description);
 
         TextView date = (TextView) dialog.findViewById(R.id.tvDeDate);
-        date.setText(events.events.get(position).date);
+        date.setText(events.events.get(position).detailedDate);
 
         ImageView image = (ImageView) dialog.findViewById(R.id.ivDeCategory);
         image.setImageDrawable(AppCompatResources.getDrawable(this, events.events.get(position).categoryPhoto));
 
         dialog.show();
-
-        /*AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        ConstraintLayout customLayout = DeBinding.clDetailedEvent;
-
-        builder.setView(R.layout.detailed_event);
-
-        DeBinding.tvDeName.setText(events.events.get(position).name);
-        DeBinding.tvDeDescription.setText(events.events.get(position).description);
-        DeBinding.tvDeDate.setText(events.events.get(position).date);
-        DeBinding.ivDeCategory.setImageDrawable(AppCompatResources.getDrawable(this, events.events.get(position).categoryPhoto));
-
-        AlertDialog dialog = builder.create();
-        dialog.show();*/
     }
 
     void SaveEvents(){

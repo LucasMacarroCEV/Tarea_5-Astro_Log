@@ -5,19 +5,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    >
-
+    android:paddingHorizontal="15sp"
+    android:layout_marginHorizontal="30sp">
 
     <ImageView
         android:id="@+id/ivEventCategoryImage"
         android:layout_width="50sp"
         android:layout_height="50sp"
+        android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars"
-        android:scaleType="centerCrop"
-        />
+        app:layout_constraintVertical_bias="0.499"
+        tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
         android:id="@+id/tvEventName"
@@ -26,7 +26,8 @@
         tools:text="Urano"
         android:textColor="@color/black"
         android:textSize="20sp"
-        android:padding="20sp"
+        android:padding="15sp"
+        app:layout_constraintEnd_toStartOf="@+id/tvEventDate"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/ivEventCategoryImage"
         app:layout_constraintTop_toTopOf="parent" />
@@ -35,14 +36,15 @@
         android:id="@+id/tvEventDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="25sp"
         android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/tvEventName"
-        app:layout_constraintTop_toTopOf="parent"
-        android:textAlignment="textEnd"
         android:textStyle="italic"
-        tools:text="12 ene 9:30"
-        />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.508"
+        tools:text="12 ene 9:30" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
