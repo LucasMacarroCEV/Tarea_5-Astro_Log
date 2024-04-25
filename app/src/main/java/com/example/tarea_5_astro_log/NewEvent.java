@@ -1,18 +1,30 @@
 package com.example.tarea_5_astro_log;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ActionBar;
+import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.os.Debug;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
+import android.widget.GridView;
 import android.widget.TimePicker;
 
 import com.example.tarea_5_astro_log.databinding.ActivityNewEventBinding;
+import com.example.tarea_5_astro_log.databinding.EventCategoryDialogBinding;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class NewEvent extends AppCompatActivity {
@@ -30,6 +42,7 @@ public class NewEvent extends AppCompatActivity {
     }
 
     private ActivityNewEventBinding binding;
+    private EventCategoryDialogBinding categoryBinding;
 
     String eventName;
     String eventDate;
@@ -41,11 +54,15 @@ public class NewEvent extends AppCompatActivity {
 
     boolean bError;
 
+    ArrayList<EventCategory> categories = new ArrayList<>();
+    EventCategory currentCategory;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityNewEventBinding.inflate(getLayoutInflater());
+        categoryBinding = EventCategoryDialogBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
 
@@ -54,15 +71,17 @@ public class NewEvent extends AppCompatActivity {
 
         binding.btnAdd.setOnClickListener(view1 -> CreateEvent());
 
-        binding.ivComet.setOnClickListener(view1 -> SetCategory(Category.COMET));
-        binding.ivMilkyway.setOnClickListener(view1 -> SetCategory(Category.MILKYWAY));
-        binding.ivShootingstar.setOnClickListener(view1 -> SetCategory(Category.SHOOTINGSTAR));
-        binding.ivFullmoon.setOnClickListener(view1 -> SetCategory(Category.FULLMOON));
-        binding.ivPlanet.setOnClickListener(view1 -> SetCategory(Category.PLANET));
-        binding.ivEclipse.setOnClickListener(view1 -> SetCategory(Category.ECLIPSE));
-        binding.ivRocket.setOnClickListener(view1 -> SetCategory(Category.ROCKET));
-        binding.ivSatellite.setOnClickListener(view1 -> SetCategory(Category.SATELLITE));
-        binding.ivUfo.setOnClickListener(view1 -> SetCategory(Category.UFO));
+        categories.add(new EventCategory(R.drawable.comet, Category.COMET));
+        categories.add(new EventCategory(R.drawable.milkyway, Category.MILKYWAY));
+        categories.add(new EventCategory(R.drawable.shootingstar, Category.SHOOTINGSTAR));
+        categories.add(new EventCategory(R.drawable.fullmoon, Category.FULLMOON));
+        categories.add(new EventCategory(R.drawable.planeta, Category.PLANET));
+        categories.add(new EventCategory(R.drawable.eclipse, Category.ECLIPSE));
+        categories.add(new EventCategory(R.drawable.rocket, Category.ROCKET));
+        categories.add(new EventCategory(R.drawable.satellite, Category.SATELLITE));
+        categories.add(new EventCategory(R.drawable.ufo, Category.UFO));
+
+        binding.ivCategory.setOnClickListener(view1 -> Category());
     }
 
     private void CreateEvent(){
@@ -95,7 +114,7 @@ public class NewEvent extends AppCompatActivity {
         bundle.putSerializable("newevent", newEvent);
 
         intent.putExtras(bundle);
-        setResult(RESULT_OK, intent);
+        setResult(Activity.RESULT_OK, intent);
         finish();
     }
 
@@ -103,8 +122,11 @@ public class NewEvent extends AppCompatActivity {
         eventName = binding.tilEventName.getEditText().getText().toString();
     }
 
-    private void SetCategory(Category eventcategory){
-        Category selectedCategory = null;
+    private void SetCategory(EventCategory category){
+        eventCategory = category.eventCategory;
+        eventCategoryPhoto = category.eventCategoryImage;
+
+        /*Category selectedCategory = null;
         int selectedCategoryIco = 0;
 
         switch (eventcategory){
@@ -148,7 +170,37 @@ public class NewEvent extends AppCompatActivity {
         }
 
         eventCategory = selectedCategory;
-        eventCategoryPhoto = selectedCategoryIco;
+        eventCategoryPhoto = selectedCategoryIco;*/
+    }
+    private void Category(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(NewEvent.this);
+        EventCategoryAdapter adapter = new EventCategoryAdapter(this, R.layout.event_category_item, categories);
+        GridView customLayout = categoryBinding.gvCategories;
+        builder.setView(customLayout);
+
+        customLayout.setAdapter(adapter);
+        if(customLayout.getParent() != null){
+            ((ViewGroup)customLayout.getParent()).removeView(customLayout);
+        }
+        customLayout.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                currentCategory = categories.get(i);
+                SetCategory(currentCategory);
+            }
+        });
+
+        builder.setTitle("Selecciona una categoría");
+        builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                binding.ivCategory.setImageDrawable(getDrawable(currentCategory.eventCategoryImage));
+            }
+        });
+        builder.setCancelable(false);
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     private void SetDate(){
@@ -160,7 +212,7 @@ public class NewEvent extends AppCompatActivity {
         DatePickerDialog datePickerDialog = new DatePickerDialog(this, R.style.DialogTheme , new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                date = String.valueOf(day) + "." + String.valueOf(month+1) + "." + String.valueOf(year);
+                date = day + "." + (month + 1) + "." + year;
             }
         }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
 
@@ -172,7 +224,7 @@ public class NewEvent extends AppCompatActivity {
         TimePickerDialog timePickerDialog = new TimePickerDialog(this, R.style.DialogTheme, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker timePicker, int hour, int minute) {
-                time = String.valueOf(hour) + ":" + String.valueOf(minute);
+                time = hour + ":" + minute;
             }
         }, c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE), false);
 

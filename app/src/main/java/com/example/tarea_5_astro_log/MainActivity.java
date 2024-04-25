@@ -1,9 +1,11 @@
 package com.example.tarea_5_astro_log;
 
+import androidx.activity.result.contract.ActivityResultContract;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -70,22 +72,27 @@ public class MainActivity extends AppCompatActivity {
     }
 
     void CreateNewEvent(){
+        int LAUNCH_NEWEVENT_ACTIVITY = 1;
         Intent newEventIntent = new Intent(MainActivity.this, NewEvent.class);
-        startActivityForResult(newEventIntent, 1);
+        startActivityForResult(newEventIntent, LAUNCH_NEWEVENT_ACTIVITY);
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data){
         super.onActivityResult(requestCode, resultCode, data);
 
-        Bundle bundle = data.getExtras();
-        Event newEvent = null;
-
         if (requestCode == 1){
-            newEvent = (Event) bundle.getSerializable("newevent");
-            if (newEvent != null){
-                events.events.add(newEvent);
-                adapter.notifyDataSetChanged();
-                UpdateEventCount();
+            if (resultCode == Activity.RESULT_OK){
+                Bundle bundle = data.getExtras();
+                Event newEvent = null;
+                newEvent = (Event) bundle.getSerializable("newevent");
+                if (newEvent != null){
+                    events.events.add(newEvent);
+                    adapter.notifyDataSetChanged();
+                    UpdateEventCount();
+                }
+            }
+            if (resultCode == Activity.RESULT_CANCELED){
+
             }
         }
     }

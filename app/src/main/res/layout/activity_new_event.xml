@@ -47,107 +47,20 @@
         android:textStyle="italic"
         android:textColor="@color/black"
         android:layout_marginTop="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/linlEventsImage"
+        app:layout_constraintBottom_toTopOf="@+id/ivCategory"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tilEventName" />
 
-    <LinearLayout
-        android:id="@+id/linlEventsImage"
-        android:layout_width="300sp"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="30sp"
+    <ImageView
+        android:id="@+id/ivCategory"
+        android:layout_width="70sp"
+        android:layout_height="70sp"
+        app:layout_constraintBottom_toTopOf="@+id/tvDate"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvCategory">
-
-        <ImageView
-            android:id="@+id/ivComet"
-            android:layout_width="60sp"
-            android:layout_height="65sp"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/comet" />
-
-        <ImageView
-            android:id="@+id/ivMilkyway"
-            android:layout_width="60sp"
-            android:layout_height="65sp"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/milkyway" />
-
-        <ImageView
-            android:id="@+id/ivShootingstar"
-            android:layout_width="60sp"
-            android:layout_height="65sp"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/shootingstar" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linl2EventsImage"
-        android:layout_width="300sp"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linlEventsImage">
-
-        <ImageView
-            android:id="@+id/ivFullmoon"
-            android:layout_width="60sp"
-            android:layout_height="65sp"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/fullmoon" />
-
-        <ImageView
-            android:id="@+id/ivPlanet"
-            android:layout_width="60sp"
-            android:layout_height="65sp"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/planeta" />
-
-        <ImageView
-            android:id="@+id/ivEclipse"
-            android:layout_width="60sp"
-            android:layout_height="65sp"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/eclipse" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linl3EventsImage"
-        android:layout_width="300sp"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linl2EventsImage">
-
-        <ImageView
-            android:id="@+id/ivRocket"
-            android:layout_width="60sp"
-            android:layout_height="65sp"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/rocket" />
-
-        <ImageView
-            android:id="@+id/ivSatellite"
-            android:layout_width="60sp"
-            android:layout_height="65sp"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/satellite" />
-
-        <ImageView
-            android:id="@+id/ivUfo"
-            android:layout_width="60sp"
-            android:layout_height="65sp"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/ufo" />
-    </LinearLayout>
+        app:layout_constraintTop_toBottomOf="@+id/tvCategory"
+        tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
         android:id="@+id/tvDate"
@@ -161,7 +74,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/btnAdd"
-        app:layout_constraintTop_toBottomOf="@+id/linl3EventsImage" />
+        app:layout_constraintTop_toBottomOf="@+id/ivCategory" />
 
     <Button
         android:id="@+id/btnDatePicker"
