@@ -11,14 +11,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Nuevo evento"
-        android:textSize="35sp"
         android:textColor="@color/black"
+        android:textSize="35sp"
         android:textStyle="bold"
-        android:layout_marginTop="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/tilEventName"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.05"
         />
 
     <com.google.android.material.textfield.TextInputLayout
@@ -27,85 +27,85 @@
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:hint="Nombre"
-        android:layout_marginTop="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/tvCategory"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvAddEvent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.2"
+        >
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <TextView
-        android:id="@+id/tvCategory"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Categoría"
-        android:textSize="20sp"
-        android:textStyle="italic"
-        android:textColor="@color/black"
-        android:layout_marginTop="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/ivCategory"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tilEventName" />
-
-    <ImageView
-        android:id="@+id/ivCategory"
-        android:layout_width="70sp"
-        android:layout_height="70sp"
-        app:layout_constraintBottom_toTopOf="@+id/tvDate"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvCategory"
-        tools:srcCompat="@tools:sample/avatars" />
-
-    <TextView
-        android:id="@+id/tvDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Fecha"
-        android:textSize="20sp"
-        android:textStyle="italic"
-        android:textColor="@color/black"
-        android:layout_marginTop="10sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/btnAdd"
-        app:layout_constraintTop_toBottomOf="@+id/ivCategory" />
-
-    <Button
-        android:id="@+id/btnDatePicker"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Fecha"
-        android:layout_marginTop="20sp"
-        app:layout_constraintEnd_toStartOf="@+id/btnTimePicker"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvDate" />
-
-    <Button
-        android:id="@+id/btnTimePicker"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hora"
-        android:layout_marginTop="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btnDatePicker"
-        app:layout_constraintTop_toBottomOf="@+id/tvDate" />
-
-    <Button
-        android:id="@+id/btnAdd"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="70sp"
-        android:text="Añadir"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilEventDescription"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="300sp"
+        android:layout_height="150sp"
+        android:hint="Descripción"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvDate" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.4"
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <ImageView
+        android:id="@+id/ivCategory"
+        android:layout_width="75sp"
+        android:layout_height="75sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.15"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.7"
+        app:srcCompat="@drawable/categoryicon" />
+
+    <ImageView
+        android:id="@+id/ivDatePicker"
+        android:layout_width="85sp"
+        android:layout_height="85sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintHorizontal_bias="0.52"
+        app:layout_constraintVertical_bias="0.7"
+        app:srcCompat="@drawable/dateicon" />
+
+    <ImageView
+        android:id="@+id/ivTimePicker"
+        android:layout_width="85sp"
+        android:layout_height="85sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.7"
+        app:layout_constraintHorizontal_bias="0.85"
+        app:srcCompat="@drawable/timeicon" />
+
+    <ImageView
+        android:id="@+id/ivAdd"
+        android:layout_width="70sp"
+        android:layout_height="70sp"
+        android:layout_marginTop="70sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.9"
+        app:srcCompat="@drawable/plusicon"
+        />
 
     <TextView
         android:id="@+id/tvError"
@@ -118,8 +118,36 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.99"
+        app:layout_constraintVertical_bias="0.985"
         app:layout_constraintHorizontal_bias="0.05"
         />
+
+    <TextView
+        android:id="@+id/tvDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="HOLA"
+        android:textAlignment="center"
+        android:textStyle="italic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.52"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivDatePicker"
+        app:layout_constraintVertical_bias="0.063" />
+
+    <TextView
+        android:id="@+id/tvTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="HOLA"
+        android:textAlignment="center"
+        android:textStyle="italic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.8"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivTimePicker"
+        app:layout_constraintVertical_bias="0.063" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

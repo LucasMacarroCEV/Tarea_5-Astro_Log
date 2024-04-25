@@ -66,10 +66,10 @@ public class NewEvent extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
 
-        binding.btnDatePicker.setOnClickListener(view1 -> DatePicker());
-        binding.btnTimePicker.setOnClickListener(view1 -> TimePicker());
+        binding.ivDatePicker.setOnClickListener(view1 -> DatePicker());
+        binding.ivTimePicker.setOnClickListener(view1 -> TimePicker());
 
-        binding.btnAdd.setOnClickListener(view1 -> CreateEvent());
+        binding.ivAdd.setOnClickListener(view1 -> CreateEvent());
 
         categories.add(new EventCategory(R.drawable.comet, Category.COMET));
         categories.add(new EventCategory(R.drawable.milkyway, Category.MILKYWAY));
@@ -213,6 +213,7 @@ public class NewEvent extends AppCompatActivity {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 date = day + "." + (month + 1) + "." + year;
+                binding.tvDate.setText(date);
             }
         }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
 
@@ -225,6 +226,7 @@ public class NewEvent extends AppCompatActivity {
             @Override
             public void onTimeSet(TimePicker timePicker, int hour, int minute) {
                 time = hour + ":" + minute;
+                binding.tvTime.setText(time);
             }
         }, c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE), false);
 
