@@ -6,18 +6,25 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:srcCompat="@drawable/mainbackground"
+        android:scaleType="centerCrop"
+        />
+
     <TextView
         android:id="@+id/tvEventsCount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="¡Has visto 3 astros!"
         android:textColor="@color/black"
         android:textSize="40sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/lvEvents"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/lvEvents"
-        />
+        tools:text="¡Has visto 3 astros!" />
 
     <ListView
         android:id="@+id/lvEvents"

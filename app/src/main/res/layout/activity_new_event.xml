@@ -6,6 +6,12 @@
     android:layout_height="match_parent"
     tools:context=".NewEvent">
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        app:srcCompat="@drawable/neweventbackground" />
+
     <TextView
         android:id="@+id/tvAddEvent"
         android:layout_width="wrap_content"
@@ -18,7 +24,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.05"
+        app:layout_constraintVertical_bias="0.08"
         />
 
     <com.google.android.material.textfield.TextInputLayout
@@ -31,7 +37,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.2"
+        app:layout_constraintVertical_bias="0.225"
         >
 
         <com.google.android.material.textfield.TextInputEditText
@@ -91,7 +97,7 @@
         app:layout_constraintHorizontal_bias="0.85"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.699"
+        app:layout_constraintVertical_bias="0.7"
         app:srcCompat="@drawable/timeicon" />
 
     <ImageView
@@ -118,7 +124,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.985"
+        app:layout_constraintVertical_bias="0.98"
         app:layout_constraintHorizontal_bias="0.05"
         />
 
@@ -134,7 +140,7 @@
         app:layout_constraintHorizontal_bias="0.52"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ivDatePicker"
-        app:layout_constraintVertical_bias="0.063" />
+        app:layout_constraintVertical_bias="0.05" />
 
     <TextView
         android:id="@+id/tvTime"
@@ -145,9 +151,9 @@
         android:textStyle="italic"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.8"
+        app:layout_constraintHorizontal_bias="0.81"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ivTimePicker"
-        app:layout_constraintVertical_bias="0.063" />
+        app:layout_constraintVertical_bias="0.05" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

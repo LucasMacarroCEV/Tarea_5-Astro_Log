@@ -1,10 +1,5 @@
 package com.example.tarea_5_astro_log;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.content.res.AppCompatResources;
-
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -15,9 +10,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.content.res.AppCompatResources;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.tarea_5_astro_log.databinding.ActivityMainBinding;
 import com.example.tarea_5_astro_log.databinding.DetailedEventBinding;
@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
     private DetailedEventBinding DeBinding;
+
     EventAdapter adapter;
     Events events;
 
@@ -42,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         // Vincular la vista de cada fila a los datos
         adapter = new EventAdapter(this, R.layout.event_item, events.events);
 
-        // Vincular el adapta a la vista del listado
+        // Vincular el adapter a la vista del listado
         binding.lvEvents.setAdapter(adapter);
 
         // Detectar pulsación en la lista
@@ -66,6 +67,9 @@ public class MainActivity extends AppCompatActivity {
         SaveEvents();
     }
 
+    /**
+     * Método que actualiza el texto que indica el número de eventos en la lista
+     */
     void UpdateEventCount(){
         if (events.events.size() == 1){
             binding.tvEventsCount.setText("¡Has visto " + events.events.size() + " astro!");
@@ -75,6 +79,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Método que inicia la actividad NewEvent, recibe un bundle con el nuevo evento y lo añade a la lista
+     */
     void CreateNewEvent(){
         int LAUNCH_NEWEVENT_ACTIVITY = 1;
         Intent newEventIntent = new Intent(MainActivity.this, NewEvent.class);
@@ -101,14 +108,21 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Método que elimina todos los eventos de la lista
+     */
     void DeleteEvents(){
         events.events.clear();
         adapter.notifyDataSetChanged();
         SaveEvents();
         UpdateEventCount();
     }
+    /**
+     * Método que elimina el evento seleccionado mediante un Dialog
+     * @param position
+     */
     void DeleteEvent(int position){
-        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this, R.style.DialogTheme);
         builder.setMessage("¿Quieres eliminar este evento?")
                 .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                     @Override
@@ -127,9 +141,13 @@ public class MainActivity extends AppCompatActivity {
                 }).show();
     }
 
+    /**
+     * Método que mustra en un Dialog información detallada del evento seleccionado
+     * @param position
+     */
     void ShowEventInfo(int position){
         final Dialog dialog = new Dialog(this);
-        RelativeLayout customLayout = DeBinding.rlDetailedEvent;
+        ConstraintLayout customLayout = DeBinding.clDeEvent;
         if(customLayout.getParent() != null){
             ((ViewGroup)customLayout.getParent()).removeView(customLayout);
         }
@@ -147,9 +165,14 @@ public class MainActivity extends AppCompatActivity {
         ImageView image = (ImageView) dialog.findViewById(R.id.ivDeCategory);
         image.setImageDrawable(AppCompatResources.getDrawable(this, events.events.get(position).categoryPhoto));
 
+        DeBinding.clDeEvent.setBackground(AppCompatResources.getDrawable(this, events.events.get(position).backgroundPhoto));
+
         dialog.show();
     }
 
+    /**
+     * Método que guarda persistentemente los eventos en un archivo Json
+     */
     void SaveEvents(){
         String json = events.toJSON();
         SharedPreferences preferences = getSharedPreferences("data", Context.MODE_PRIVATE);
@@ -157,6 +180,9 @@ public class MainActivity extends AppCompatActivity {
         editor.putString("events", json);
         editor.apply();
     }
+    /**
+     * Método que carga los eventos de un archivo Json
+     */
     void LoadEvents(){
         SharedPreferences preferences = getSharedPreferences("data", Context.MODE_PRIVATE);
         String json = preferences.getString("events", null);

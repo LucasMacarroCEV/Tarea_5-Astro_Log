@@ -19,6 +19,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.GridView;
+import android.widget.LinearLayout;
 import android.widget.TimePicker;
 
 import com.example.tarea_5_astro_log.databinding.ActivityNewEventBinding;
@@ -26,6 +27,7 @@ import com.example.tarea_5_astro_log.databinding.EventCategoryDialogBinding;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Random;
 
 public class NewEvent extends AppCompatActivity {
     private ActivityNewEventBinding binding;
@@ -37,6 +39,10 @@ public class NewEvent extends AppCompatActivity {
     String[] months = new String[]{
             "Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"
     };
+    int[] eventBackgrounds = new int[]{
+            R.drawable.eventback01, R.drawable.eventback02, R.drawable.eventback03, R.drawable.eventback04, R.drawable.eventback05,
+            R.drawable.eventback06, R.drawable.eventback07, R.drawable.eventback08, R.drawable.eventback09
+    };
 
     String eventName;
     String eventDescription;
@@ -47,6 +53,7 @@ public class NewEvent extends AppCompatActivity {
     int eventYear;
     int eventMonth;
     int eventDay;
+    int eventBackground;
 
     Category eventCategory;
     EventCategory currentCategory;
@@ -81,10 +88,14 @@ public class NewEvent extends AppCompatActivity {
         binding.ivCategory.setOnClickListener(view1 -> Category());
     }
 
+    /**
+     * Método que comprueba y asigna los valores del evento a las variables locales
+     */
     private void CreateEvent(){
         SetName();
         SetDescription();
         SetDate();
+        SetBackground();
 
         if (binding.tilEventName.getEditText().getText().toString().isEmpty() || eventCategoryPhoto == 0 || eventCategory == null || eventSimpleDate.isEmpty()){
             binding.tvError.setText("Rellene todos los campos, por favor.");
@@ -104,8 +115,11 @@ public class NewEvent extends AppCompatActivity {
             SendNewEvent();
         }
     }
+    /**
+     * Método que crea el evento y lo envía a la MainActivity
+     */
     private void SendNewEvent(){
-        Event newEvent = new Event(eventName, eventDescription, eventSimpleDate, eventDetailedDate, eventCategoryPhoto, eventCategory, eventYear, eventMonth, eventDay);
+        Event newEvent = new Event(eventName, eventDescription, eventSimpleDate, eventDetailedDate, eventCategoryPhoto, eventCategory, eventYear, eventMonth, eventDay, eventBackground);
         Intent intent =new Intent(NewEvent.this, MainActivity.class);
 
         Bundle bundle = new Bundle();
@@ -116,18 +130,31 @@ public class NewEvent extends AppCompatActivity {
         finish();
     }
 
+    /**
+     * Método que asigna el nombre introducido en el campo correspondiente a su respectiva variable
+     */
     private void SetName(){
         eventName = binding.tilEventName.getEditText().getText().toString();
     }
 
+    /**
+     * Método que asigna la descripción introducida en el campo correspondiente a su respectiva variable
+     */
     private void SetDescription(){
         eventDescription = binding.tilEventDescription.getEditText().getText().toString();
     }
 
+    /**
+     * Método que asigna la categoría y la imagen correspondiente a sus respectivas variables
+     * @param category
+     */
     private void SetCategory(EventCategory category){
         eventCategory = category.eventCategory;
         eventCategoryPhoto = category.eventCategoryImage;
     }
+    /**
+     * Método que crea un AlertDialog para seleccionar la categoría
+     */
     private void Category(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         EventCategoryAdapter adapter = new EventCategoryAdapter(this, R.layout.event_category_item, categories);
@@ -146,7 +173,7 @@ public class NewEvent extends AppCompatActivity {
             }
         });
 
-        customLayout.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        categoryBinding.gvCategories.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 currentCategory = categories.get(i);
@@ -155,21 +182,20 @@ public class NewEvent extends AppCompatActivity {
             }
         });
         builder.setTitle("Selecciona una categoría");
-        /*builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                binding.ivCategory.setImageDrawable(getDrawable(currentCategory.eventCategoryImage));
-            }
-        });*/
-        //builder.setCancelable(false);
 
         dialog.show();
     }
 
+    /**
+     * Método que asigna la fecha introducida a sus respectivas variables
+     */
     private void SetDate(){
         eventSimpleDate = months[eventMonth] + " " + eventYear;
         eventDetailedDate = date + "  " + time;
     }
+    /**
+     * Método que crea un DatePickerDialog y guarda la fecha introducida por el usuario
+     */
     private void DatePicker(){
         final Calendar c = Calendar.getInstance();
 
@@ -186,6 +212,9 @@ public class NewEvent extends AppCompatActivity {
 
         datePickerDialog.show();
     }
+    /**
+     * Método que crea un TimePickerDialog y guarda la hora introducida por el ususario
+     */
     private void TimePicker(){
         final Calendar c = Calendar.getInstance();
 
@@ -198,5 +227,13 @@ public class NewEvent extends AppCompatActivity {
         }, c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE), false);
 
         timePickerDialog.show();
+    }
+
+    /**
+     * Método que selecciona y asigna un fondo aleatorio a su respectiva variable
+     */
+    private void SetBackground(){
+        int random = new Random().nextInt(eventBackgrounds.length);
+        eventBackground = eventBackgrounds[random];
     }
 }

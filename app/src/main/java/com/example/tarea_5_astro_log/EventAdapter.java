@@ -1,6 +1,7 @@
 package com.example.tarea_5_astro_log;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import java.util.List;
+import java.util.Random;
 
 public class EventAdapter extends ArrayAdapter
 {
@@ -48,6 +50,10 @@ public class EventAdapter extends ArrayAdapter
         //Poner la fecha
         TextView tvDate = convertView.findViewById(R.id.tvEventDate);
         tvDate.setText(event.simpleDate);
+
+        //Poner el fondo
+        ImageView ivBackground = convertView.findViewById(R.id.ivEventBackground);
+        ivBackground.setImageDrawable(context.getDrawable(event.backgroundPhoto));
 
         Log.i("getView", "fila: " + position + " nombre: "+ event.name);
         return convertView;
